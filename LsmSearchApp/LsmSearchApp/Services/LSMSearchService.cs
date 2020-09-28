@@ -40,8 +40,8 @@ namespace LsmSearchApp.Services
 
                 // extract the relevant entities and add them in _searchResults array
                 GetRelevantBuildings();
-                GetRelevantLocks();
-                // Extract relevant Groups
+                GetRelevantLocks(); 
+                GetRelevantGroups();
                 // Extract relevant Mediums
 
                 // order the searchResults based on weight
@@ -120,6 +120,41 @@ namespace LsmSearchApp.Services
         }
 
         // Extract relevant Groups
+        private void GetRelevantGroups()
+        {
+            // check all the Groups
+            foreach (var groupObj in _dataService.GetEntitiesData().groups)
+            {
+                // calculate the weight of a group record
+                groupObj.CalculateEntityWeight(_searchText);
+
+                // Assign WeightT to all the child entities of group
+                if (groupObj.WeightT > 0)
+                {
+                    // Iterate over all the medias and add the weightT
+                    foreach (var medium in groupObj.Mediums)
+                    {
+                        if (_dataRecordsDict.ContainsKey(medium))
+                        {   // update the weight of mediums
+                            _dataRecordsDict[medium].Weight = groupObj.WeightT;
+                        }
+                    }
+                    // for next search make the calculated weightT zero
+                    groupObj.WeightT = 0;
+                }
+
+                // if weight is not 0 then add it in the result array
+                if (groupObj.Weight > 0)
+                {
+                    var groupTemp = new GroupDto();
+                    groupTemp.Put(groupObj);
+                    _searchResults.Add(groupTemp);
+                    // for next search make the calculated weight zero
+                    groupObj.Weight = 0;
+                }
+
+            }
+        }
 
         // Extract relevant Mediums
 
