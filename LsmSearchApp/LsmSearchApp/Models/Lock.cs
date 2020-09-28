@@ -39,7 +39,14 @@ namespace LsmSearchApp.Models
         // Calculate the weight of Lock record based on searchText
         public void CalculateEntityWeight(string searchText)
         {
+            // add new weight in it because previously WeightT could be added incase of Match with parent Building
+            Weight += CalculateAttributeWeight(searchText, Type, (int)LockWeight.TypeWeight);
+            Weight += CalculateAttributeWeight(searchText, Name, (int)LockWeight.NameWeight);
+            Weight += CalculateAttributeWeight(searchText, SerialNumber, (int)LockWeight.SerialNumberWeight);
+            Weight += CalculateAttributeWeight(searchText, Floor, (int)LockWeight.FloorWeight);
+            Weight += CalculateAttributeWeight(searchText, RoomNumber, (int)LockWeight.RoomNumberWeight);
+            Weight += CalculateAttributeWeight(searchText, Description, (int)LockWeight.DescriptionWeight);
         }
 
-     }
+    }
 }

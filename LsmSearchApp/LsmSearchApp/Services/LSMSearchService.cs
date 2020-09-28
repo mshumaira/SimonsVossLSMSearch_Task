@@ -40,14 +40,15 @@ namespace LsmSearchApp.Services
 
                 // extract the relevant entities and add them in _searchResults array
                 GetRelevantBuildings();
-                // Extract relevant Locks
+                GetRelevantLocks();
                 // Extract relevant Groups
                 // Extract relevant Mediums
 
                 // order the searchResults based on weight
                 if (_searchResults.Count > 0)
-                {
-
+                {  
+                    // order the search result based on the weight
+                    // record with highest weight value will come first
                     return _searchResults.OrderByDescending(entity => entity.Weight)
                         .ToList();
                 }
@@ -61,7 +62,7 @@ namespace LsmSearchApp.Services
         }
 
         // Extract relevant buildings
-        private  void GetRelevantBuildings()
+        private void GetRelevantBuildings()
         {
             // check all the buildings
             foreach (var buildingObj in _dataService.GetEntitiesData().buildings)
@@ -87,8 +88,6 @@ namespace LsmSearchApp.Services
                 // if weight is not 0 then add this building in the result search array
                 if (buildingObj.Weight > 0)
                 {
-                    //var buildingTemp = new Building(building);
-                    //_searchResults.Add(buildingTemp);
                     var buildingTemp = new BuildingDto();
                     buildingTemp.Put(buildingObj);
                     _searchResults.Add(buildingTemp);
@@ -99,9 +98,26 @@ namespace LsmSearchApp.Services
             }
         }
 
-
-
         // Extract relevant Locks
+        private void GetRelevantLocks()
+        {
+            // check all the Locks
+            foreach (var lockObj in _dataService.GetEntitiesData().locks)
+            {
+                // calculate the weight of a Lock record
+                lockObj.CalculateEntityWeight(_searchText);
+
+                // if weight is not 0 then add it in the result array
+                if (lockObj.Weight > 0)
+                {
+                    var lockTemp = new LockDto();
+                    lockTemp.Put(lockObj);
+                    _searchResults.Add(lockTemp);
+                    // for next search make the calculated weight zero
+                    lockObj.Weight = 0;
+                }
+            }
+        }
 
         // Extract relevant Groups
 
