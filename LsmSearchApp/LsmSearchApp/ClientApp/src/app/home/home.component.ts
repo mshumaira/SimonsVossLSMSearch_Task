@@ -4,20 +4,30 @@ import { SearchTextService } from '../services/SearchText/search-text.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  title = 'SimonsVossLsmSearch-WebPortal';
+
+  title = 'Simons-Voss LSM Search - WebPortal';
+  // variable to store search text
   searchText: string = "";
+  //variable to store searchResults
   searchResults: any = null;
 
+  //searchservice injected
   constructor (private searchTextService: SearchTextService) {}
 
   loadSearchResult() {
-    debugger;
+    // extract the search results
     this.searchTextService.getSearchResult(this.searchText).then(searchResults => {
-      debugger;
       this.searchResults = searchResults;
     }, error => window.alert(`Error: ${error}`));  
+  }
+
+  RefreshSearchResult(){
+    this.searchText="";
+    this.searchResults = null;
+
   }
 
 }
