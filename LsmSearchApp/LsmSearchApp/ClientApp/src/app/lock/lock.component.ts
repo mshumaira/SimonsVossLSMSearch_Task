@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./lock.component.css']
 })
 export class LockComponent implements OnInit {
-
+  //data record of lock
   @Input() lock: any = {};
   constructor() { }
 

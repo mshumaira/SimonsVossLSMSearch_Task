@@ -6,6 +6,8 @@ import { Component, OnInit, Input} from '@angular/core';
   styleUrls: ['./building.component.css']
 })
 export class BuildingComponent implements OnInit {
+  
+  //data record of Building
   @Input() building: any = {};
 
   constructor() { }
