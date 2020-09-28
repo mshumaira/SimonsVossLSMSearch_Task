@@ -1,3 +1,5 @@
+using LsmSearchApp.Services;
+using LsmSearchApp.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -20,6 +22,13 @@ namespace LsmSearchApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Dependency injection
+            services.AddSingleton<IDataService, DataService>();
+            services.AddSingleton<ILSMSearchService, LSMSearchService>();
+
+            // Add CORs setting
+            services.AddCors();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the Angular files will be served from this directory
@@ -41,6 +50,11 @@ namespace LsmSearchApp
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+            // Enable Cors
+            app.UseCors(builder => builder
+             .AllowAnyOrigin()
+             .AllowAnyMethod()
+             .AllowAnyHeader());
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
