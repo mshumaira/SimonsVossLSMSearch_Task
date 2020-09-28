@@ -24,6 +24,7 @@ export class HomeComponent {
     }, error => window.alert(`Error: ${error}`));  
   }
 
+  // Refresh- remove existing searchData
   RefreshSearchResult(){
     this.searchText="";
     this.searchResults = null;
