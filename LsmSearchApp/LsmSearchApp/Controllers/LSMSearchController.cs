@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LsmSearchApp.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,14 +16,20 @@ namespace LsmSearchApp.Controllers
     {
         // services variables
         private ILogger<LSMSearchController> _logger;
+        private ILSMSearchService _lsmSearchService;
 
         // services will be initialized here 
-        public LSMSearchController(ILogger<LSMSearchController> logger)
+        public LSMSearchController(ILogger<LSMSearchController> logger, ILSMSearchService lsmSearchService)
         {
             _logger = logger;
+            _lsmSearchService = lsmSearchService;
         }
 
-        // SearchTextAction Method
+        /// <summary>
+        /// Search the Text
+        /// </summary>
+        /// <param name="searchText">Search Text</param>
+        /// <returns>Returns JSON object List of all the relevant entities(dto)</returns>
         [HttpGet("[action]")]
         public IActionResult LSMSearchText(string searchText)
         {
@@ -31,12 +38,12 @@ namespace LsmSearchApp.Controllers
                 if (!string.IsNullOrEmpty(searchText))
                 {
                     // compute the search results here
-                    var searchResults = "Search Result";
-
-
-                    string JsonResult = JsonConvert.SerializeObject(searchResults);
-                    return Ok(JsonResult);
-
+                    var searchResults = _lsmSearchService.SearchText(searchText);
+                    if (searchResults != null)
+                    {
+                        string JsonResult = JsonConvert.SerializeObject(searchResults);
+                        return Ok(JsonResult);
+                    }
                 }
                 // Return Notfound incase of Search Text is null or empty
                 return NotFound("Search Text not found");

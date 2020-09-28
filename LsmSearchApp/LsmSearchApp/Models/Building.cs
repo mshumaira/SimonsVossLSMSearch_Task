@@ -35,9 +35,25 @@ namespace LsmSearchApp.Models
         }
 
 
-        // Calculate the weight of Building record based on searchText, return WeightT for child entities
+        // Calculate the weight of Building record based on searchText, also calculate WeightT for child entities
         public void CalculateEntityWeight(string searchText)
         {
+            // check similarity of searchText with each attribute of Building
+            int ShortCutWeight = CalculateAttributeWeight(searchText, ShortCut, (int)BuildingWeight.ShortCutWeight);
+            int NameWeight = CalculateAttributeWeight(searchText, Name, (int)BuildingWeight.NameWeight);
+            int DescriptionWeight = CalculateAttributeWeight(searchText, Description, (int)BuildingWeight.DescriptionWeight);
+            // Total building weight
+            Weight = ShortCutWeight + NameWeight + DescriptionWeight; 
+
+            // if total weight is not 0 
+            //calculate the WeightT 
+            if (Weight > 0)
+            {
+                // add WeightT value of respective Attribute( for which match was found)
+                WeightT += ShortCutWeight > 0 ? (int)BuildingWeight.ShortCutWeightT : 0;
+                WeightT += NameWeight > 0 ? (int)BuildingWeight.NameWeightT : 0;
+                WeightT += DescriptionWeight > 0 ? (int)BuildingWeight.DescriptionWeightT : 0;
+            }
         }
     }
 }
