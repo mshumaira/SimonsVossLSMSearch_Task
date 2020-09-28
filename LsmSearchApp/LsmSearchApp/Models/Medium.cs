@@ -31,10 +31,14 @@ namespace LsmSearchApp.Models
         {
         }
 
-
         // Calculate the weight of medium record based on searchText
         public void CalculateEntityWeight(string searchText)
         {
+            // add new weight in it because previously WeightT could be added incase of Match with parent Group
+            Weight += CalculateAttributeWeight(searchText, Type, (int)MediumWeight.TypeWeight);
+            Weight += CalculateAttributeWeight(searchText, Owner, (int)MediumWeight.OwnerWeight);
+            Weight += CalculateAttributeWeight(searchText, SerialNumber, (int)MediumWeight.SerialNumberWeight);
+            Weight += CalculateAttributeWeight(searchText, Description, (int)MediumWeight.DescriptionWeight);
         }
     }
 }

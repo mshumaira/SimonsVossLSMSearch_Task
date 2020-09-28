@@ -42,17 +42,16 @@ namespace LsmSearchApp.Services
                 GetRelevantBuildings();
                 GetRelevantLocks(); 
                 GetRelevantGroups();
-                // Extract relevant Mediums
+                GetRelevantMediums();
 
-                // order the searchResults based on weight
+                // if any relevant results are found then order them
                 if (_searchResults.Count > 0)
-                {  
+                {
                     // order the search result based on the weight
-                    // record with highest weight value will come first
-                    return _searchResults.OrderByDescending(entity => entity.Weight)
-                        .ToList();
+                    return OrderSearchResults();
                 }
 
+                // if no relevant results are found return null
                 return null;
             }
             catch (Exception ex)
@@ -157,6 +156,32 @@ namespace LsmSearchApp.Services
         }
 
         // Extract relevant Mediums
+        private void GetRelevantMediums()
+        {
+            // check all the Mediums/Media
+            foreach (var mediumObj in _dataService.GetEntitiesData().media)
+            {
+                // calculate the weight of medium record
+                mediumObj.CalculateEntityWeight(_searchText);
 
+                // if weight is not 0 then add it in the result array
+                if (mediumObj.Weight > 0)
+                {
+                    var mediumTemp = new MediumDto();
+                    mediumTemp.Put(mediumObj);
+                    _searchResults.Add(mediumTemp);
+                    // for next search make the calculated weight zero
+                    mediumObj.Weight = 0;
+                }
+            }
+        }
+
+        // order the search results based on weight
+        private List<EntityDto> OrderSearchResults()
+        {
+            // record with highest weight value will come first
+            return _searchResults.OrderByDescending(entity => entity.Weight)
+                .ToList();
+        }
     }
 }
