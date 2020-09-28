@@ -7,5 +7,8 @@ namespace LsmSearchApp.Models.Dtos
 {
     public class EntityDto
     {
+        public string Id { get; set; }
+        public string EntityType { get; set; }
+        public int Weight { get; set; }
     }
 }
