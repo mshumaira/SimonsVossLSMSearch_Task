@@ -11,5 +11,11 @@
 </div>
 <div *ngIf="searchResults" class="marginTop-20">
   <h3> Search results: </h3>
+  <ng-container *ngFor="let searchResult of searchResults">
+      
+    <app-building *ngIf="searchResult.EntityType==='Building'" [building]="searchResult">
+    </app-building>
+
+  </ng-container>
   {{ searchResults | json }}
 </div>

@@ -8,12 +8,14 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { BaseService } from './services/Base/base.service';
 import { SearchTextService } from './services/SearchText/search-text.service';
+import { BuildingComponent } from './building/building.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent
+    HomeComponent,
+    BuildingComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
