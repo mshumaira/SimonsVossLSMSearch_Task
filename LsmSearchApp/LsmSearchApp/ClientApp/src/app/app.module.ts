@@ -11,6 +11,7 @@ import { SearchTextService } from './services/SearchText/search-text.service';
 import { BuildingComponent } from './building/building.component';
 import { LockComponent } from './lock/lock.component';
 import { GroupComponent } from './group/group.component';
+import { MediumComponent } from './medium/medium.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { GroupComponent } from './group/group.component';
     HomeComponent,
     BuildingComponent,
     LockComponent,
-    GroupComponent
+    GroupComponent,
+    MediumComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

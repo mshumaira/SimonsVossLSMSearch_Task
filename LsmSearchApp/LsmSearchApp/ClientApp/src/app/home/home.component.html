@@ -1,3 +1,4 @@
+<h1>{{title}}</h1>
 <h1>Welcome</h1>
 <p>Welcome to Simons Voss search Functionality:</p>
 <div>
@@ -15,14 +16,17 @@
       
     <app-building *ngIf="searchResult.EntityType==='Building'" [building]="searchResult">
     </app-building>
-    
+
     <app-group *ngIf="searchResult.EntityType==='Group'" [group]="searchResult">
     </app-group>
 
     <app-lock *ngIf="searchResult.EntityType==='Lock'" [lock]="searchResult"> 
     </app-lock>
 
+        
+    <app-medium *ngIf="searchResult.EntityType==='Medium'" [medium]="searchResult"> 
+    </app-medium>
 
   </ng-container>
-  {{ searchResults | json }}
+  
 </div>

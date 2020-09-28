@@ -6,16 +6,17 @@ import { SearchTextService } from '../services/SearchText/search-text.service';
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
-  title = 'SimonsVossLsmSearch-WebPortal';
+
+  title = 'Simons-Voss LSM Search - WebPortal';
   searchText: string = "";
   searchResults: any = null;
 
+  //searchservice injected
   constructor (private searchTextService: SearchTextService) {}
 
   loadSearchResult() {
-    debugger;
+    // extract the search results
     this.searchTextService.getSearchResult(this.searchText).then(searchResults => {
-      debugger;
       this.searchResults = searchResults;
     }, error => window.alert(`Error: ${error}`));  
   }
