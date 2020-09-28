@@ -24,12 +24,33 @@ namespace LsmSearchApp.Models
             Weight = 0;
         }
 
-        public static int CalculateAttributeWeight(string searchText, string attributeData, int attributeWeight)
+
+        //Calculate the weight of one Field Based on SearchText
+        //Look for full or partial match in text
+        public int CalculateAttributeWeight(string searchText, string attributeData, int attributeWeight)
         {
-            //compare
-            //check for fullmatch
-            //check for partial match
-            // incase if null or empty attribute Data return 0;
+            // If attributeData is not null other indexOf function can give ArgumentNullException 
+            // Returns the index of place where the first character of the SearchText match with attributeData 
+            // Compare method returns -1 if no match
+            // Compare the string by ignoring it's case
+            if (!string.IsNullOrEmpty(attributeData) && !string.IsNullOrEmpty(searchText) && (attributeData.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0))
+            {  //|| attributeData.IndexOf(searchText, StringComparison.InvariantCultureIgnoreCase)>=0
+
+                // Full Match
+                if (attributeData.Length == searchText.Length && (attributeData.Equals(searchText, StringComparison.OrdinalIgnoreCase)))
+                {
+                    //attributeData.Equals(searchText, StringComparison.InvariantCultureIgnoreCase)
+
+                    //Multipling with 10- for 10x more relevant 
+                    //in case of full match
+                    return (attributeWeight * 10);
+                }
+                else //Partial Match
+                {
+                    return attributeWeight;
+                }
+            }
+            // if attribute Data or search text is null or empty return 0;
             return 0;
         }
     }

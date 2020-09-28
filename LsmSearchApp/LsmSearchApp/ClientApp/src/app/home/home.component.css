@@ -1,0 +1,12 @@
+
+.SearchDiv {
+    display: inline-flex !important;
+  }
+  
+  .marginTop-20{
+    margin-top: 20px;
+  }
+  .marginLeftRight-5{
+    margin-left: 5px;
+    margin-right: 5px;
+  }

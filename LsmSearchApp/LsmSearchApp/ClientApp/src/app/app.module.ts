@@ -3,32 +3,35 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { BaseService } from './services/Base/base.service';
+import { SearchTextService } from './services/SearchText/search-text.service';
+import { BuildingComponent } from './building/building.component';
+import { LockComponent } from './lock/lock.component';
+import { GroupComponent } from './group/group.component';
+import { MediumComponent } from './medium/medium.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    BuildingComponent,
+    LockComponent,
+    GroupComponent,
+    MediumComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: '', component: HomeComponent, pathMatch: 'full' }
     ])
   ],
-  providers: [],
+  providers: [ BaseService, SearchTextService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
