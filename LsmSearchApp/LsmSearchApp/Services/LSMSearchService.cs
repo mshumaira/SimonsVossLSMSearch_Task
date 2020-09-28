@@ -39,7 +39,7 @@ namespace LsmSearchApp.Services
                 _dataRecordsDict = _dataService.GetDataDictionary();
 
                 // extract the relevant entities and add them in _searchResults array
-                // Extract relevant buildings
+                GetRelevantBuildings();
                 // Extract relevant Locks
                 // Extract relevant Groups
                 // Extract relevant Mediums
@@ -61,6 +61,45 @@ namespace LsmSearchApp.Services
         }
 
         // Extract relevant buildings
+        private  void GetRelevantBuildings()
+        {
+            // check all the buildings
+            foreach (var buildingObj in _dataService.GetEntitiesData().buildings)
+            {
+                // calculate the weight of a building record
+                buildingObj.CalculateEntityWeight(_searchText);
+
+                // Adding WeightT to all child Entities of building
+                if (buildingObj.WeightT > 0)
+                {
+                    // Iterate over all the locks and add the weightT
+                    foreach (var lockobj in buildingObj.Locks)
+                    {
+                        if (_dataRecordsDict.ContainsKey(lockobj))
+                        {   // update the weight of lock
+                            _dataRecordsDict[lockobj].Weight = buildingObj.WeightT;
+                        }
+                    }
+                    // for next search make the calculated weightT zero
+                    buildingObj.WeightT = 0;
+                }
+
+                // if weight is not 0 then add this building in the result search array
+                if (buildingObj.Weight > 0)
+                {
+                    //var buildingTemp = new Building(building);
+                    //_searchResults.Add(buildingTemp);
+                    var buildingTemp = new BuildingDto();
+                    buildingTemp.Put(buildingObj);
+                    _searchResults.Add(buildingTemp);
+
+                    // for next search make the calculated weight zero
+                    buildingObj.Weight = 0;
+                }
+            }
+        }
+
+
 
         // Extract relevant Locks
 
