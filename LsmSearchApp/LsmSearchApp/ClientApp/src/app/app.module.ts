@@ -9,13 +9,15 @@ import { HomeComponent } from './home/home.component';
 import { BaseService } from './services/Base/base.service';
 import { SearchTextService } from './services/SearchText/search-text.service';
 import { BuildingComponent } from './building/building.component';
+import { LockComponent } from './lock/lock.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    BuildingComponent
+    BuildingComponent,
+    LockComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

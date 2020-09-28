@@ -1,0 +1,11 @@
+<div class="lock"> 
+  <div>Entity Type: {{lock.EntityType}}</div>
+  <div>Type: {{lock.Type}}</div>
+  <div>Name: {{lock.Name}}</div>
+  <div>Serial Number: {{lock.SerialNumber}}</div>
+  <div>Floor: {{lock.Floor}}</div>
+  <div>Room Number: {{lock.RoomNumber}}</div>
+  <div *ngIf="lock.Description">Description: {{lock.Description}}</div>
+  <div class="DisplayNone">BuildingId: {{lock.BuildingId}}</div>
+  <div>Building Name: {{lock.Building.Name}}</div>
+</div>

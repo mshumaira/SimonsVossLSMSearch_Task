@@ -16,6 +16,10 @@
     <app-building *ngIf="searchResult.EntityType==='Building'" [building]="searchResult">
     </app-building>
 
+    <app-lock *ngIf="searchResult.EntityType==='Lock'" [lock]="searchResult"> 
+    </app-lock>
+
+
   </ng-container>
   {{ searchResults | json }}
 </div>
