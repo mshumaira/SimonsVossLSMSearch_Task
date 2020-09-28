@@ -4,6 +4,7 @@ import { SearchTextService } from '../services/SearchText/search-text.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
 
@@ -21,6 +22,12 @@ export class HomeComponent {
     this.searchTextService.getSearchResult(this.searchText).then(searchResults => {
       this.searchResults = searchResults;
     }, error => window.alert(`Error: ${error}`));  
+  }
+
+  RefreshSearchResult(){
+    this.searchText="";
+    this.searchResults = null;
+
   }
 
 }
