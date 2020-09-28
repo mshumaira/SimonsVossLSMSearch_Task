@@ -8,7 +8,9 @@ import { SearchTextService } from '../services/SearchText/search-text.service';
 export class HomeComponent {
 
   title = 'Simons-Voss LSM Search - WebPortal';
+  // variable to store search text
   searchText: string = "";
+  //variable to store searchResults
   searchResults: any = null;
 
   //searchservice injected
