@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MediumComponent implements OnInit {
 
+  //data record of medium
   @Input() medium: any = {};
   constructor() { }
 
