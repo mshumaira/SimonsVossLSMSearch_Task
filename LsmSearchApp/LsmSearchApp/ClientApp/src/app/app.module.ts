@@ -10,6 +10,7 @@ import { BaseService } from './services/Base/base.service';
 import { SearchTextService } from './services/SearchText/search-text.service';
 import { BuildingComponent } from './building/building.component';
 import { LockComponent } from './lock/lock.component';
+import { GroupComponent } from './group/group.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { LockComponent } from './lock/lock.component';
     NavMenuComponent,
     HomeComponent,
     BuildingComponent,
-    LockComponent
+    LockComponent,
+    GroupComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

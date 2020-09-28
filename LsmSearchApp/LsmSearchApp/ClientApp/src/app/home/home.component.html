@@ -15,6 +15,9 @@
       
     <app-building *ngIf="searchResult.EntityType==='Building'" [building]="searchResult">
     </app-building>
+    
+    <app-group *ngIf="searchResult.EntityType==='Group'" [group]="searchResult">
+    </app-group>
 
     <app-lock *ngIf="searchResult.EntityType==='Lock'" [lock]="searchResult"> 
     </app-lock>
